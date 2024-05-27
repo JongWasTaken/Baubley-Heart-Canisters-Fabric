@@ -1,0 +1,22 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "S S",
+    "GHG",
+    " G "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "H": {
+      "tag": "bhc:heart"
+    },
+    "G": {
+      "tag": "c:glass_blocks"
+    }
+  },
+  "result": {
+    "item": "bhc:heart_amulet"
+  }
+}

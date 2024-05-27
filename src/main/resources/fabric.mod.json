@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "bhc",
+	"version": "${version}",
+	"name": "Baubley Heart Containers (Fabric)",
+	"description": "A fabric port of Baubley Heart Canisters.",
+	"authors": [
+		"JongWasTaken",
+		"Traverse_Joe"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/JongWasTaken/Baubley-Heart-Canisters-Fabric"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/bhc/textures/item/heart_amulet.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "pw.smto.bhc.common.BaubleyHeartCanisters"
+		],
+		"client": [
+			"pw.smto.bhc.client.BaubleyHeartCanisters"
+		]
+	},
+	"accessWidener" : "bhc.accesswidener",
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

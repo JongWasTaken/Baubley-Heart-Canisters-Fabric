@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "amount": 1,
+  "icon": "bhc:slot/empty_heartamulet",
+  "drop_rule": "default"
+}

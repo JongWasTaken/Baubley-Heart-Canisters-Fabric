@@ -1,0 +1,22 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    " D ",
+    "EAE",
+    " D "
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "A" : {
+      "item": "minecraft:apple"
+    }
+  },
+  "result": {
+    "item": "bhc:relic_apple"
+  }
+}
