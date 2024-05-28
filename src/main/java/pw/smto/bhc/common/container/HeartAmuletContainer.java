@@ -148,7 +148,7 @@ public class HeartAmuletContainer extends ScreenHandler {
             return false;
         }
     }
-
+/*
     @Override
     public boolean handleSlotClick(PlayerEntity player, ClickType clickType, Slot slot, ItemStack stack, ItemStack cursorStack) {
         if (clickType == ClickType.LEFT) {
@@ -159,6 +159,8 @@ public class HeartAmuletContainer extends ScreenHandler {
         return super.handleSlotClick(player, clickType, slot, stack, cursorStack);
     }
 
+
+ */
     @Override
     public ItemStack quickMove(PlayerEntity playerIn, int index) {
         ItemStack stack = ItemStack.EMPTY;

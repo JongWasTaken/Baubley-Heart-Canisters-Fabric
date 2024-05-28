@@ -29,6 +29,7 @@ import pw.smto.bhc.common.BaubleyHeartCanisters;
 import pw.smto.bhc.common.Registry;
 import pw.smto.bhc.common.container.BladeOfVitalityContainer;
 import pw.smto.bhc.common.container.HeartAmuletContainer;
+import pw.smto.bhc.common.container.SoulHeartAmuletContainer;
 import pw.smto.bhc.common.util.HeartType;
 
 import java.util.List;
@@ -60,22 +61,25 @@ public class ItemHeartAmulet extends TrinketItem implements ExtendedScreenHandle
         for (int i : getHeartCount(stack)) {
             extraHearts += i;
         }
-        extraHearts = extraHearts * 2;
 
         modifiers.put(EntityAttributes.GENERIC_MAX_HEALTH, new EntityAttributeModifier(uuid, "bhc:extra_health", extraHearts, EntityAttributeModifier.Operation.ADDITION));
-        // If the player has access to ring slots, this will give them an extra one
-        //SlotAttributes.addSlotModifier(modifiers, "hand/ring", uuid, 1, EntityAttributeModifier.Operation.ADDITION);
         return modifiers;
     }
 
     public int[] getHeartCount(ItemStack stack) {
+        int[] array = new int[4];
         if (stack.hasNbt()) {
             NbtCompound nbt = stack.getNbt();
-            if (nbt.contains(HeartAmuletContainer.HEART_AMOUNT))
-                return nbt.getIntArray(HeartAmuletContainer.HEART_AMOUNT);
+            if (nbt.contains(SoulHeartAmuletContainer.HEART_AMOUNT)) {
+                var t = nbt.getIntArray(SoulHeartAmuletContainer.HEART_AMOUNT);
+                array[0] = t[0];
+                array[1] = t[1];
+                array[2] = t[2];
+                array[3] = t[3];
+            }
         }
 
-        return new int[HeartType.values().length];
+        return array;
     }
 
     @Override

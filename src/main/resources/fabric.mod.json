@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "bhc",
 	"version": "${version}",
-	"name": "Baubley Heart Containers (Fabric)",
+	"name": "Baubley Heart Canisters (Fabric)",
 	"description": "A fabric port of Baubley Heart Canisters.",
 	"authors": [
 		"JongWasTaken",
@@ -31,6 +31,6 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
+		"colorful-hearts": "*"
 	}
 }

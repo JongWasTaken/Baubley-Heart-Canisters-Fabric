@@ -61,22 +61,25 @@ public class ItemSoulHeartAmulet extends TrinketItem implements ExtendedScreenHa
         for (int i : getHeartCount(stack)) {
             extraHearts += i;
         }
-        //extraHearts = extraHearts * 2;
 
         modifiers.put(EntityAttributes.GENERIC_MAX_HEALTH, new EntityAttributeModifier(uuid, "bhc:extra_health", extraHearts, EntityAttributeModifier.Operation.ADDITION));
-        // If the player has access to ring slots, this will give them an extra one
-        //SlotAttributes.addSlotModifier(modifiers, "hand/ring", uuid, 1, EntityAttributeModifier.Operation.ADDITION);
         return modifiers;
     }
 
     public int[] getHeartCount(ItemStack stack) {
+        int[] array = new int[4];
         if (stack.hasNbt()) {
             NbtCompound nbt = stack.getNbt();
-            if (nbt.contains(SoulHeartAmuletContainer.HEART_AMOUNT))
-                return nbt.getIntArray(SoulHeartAmuletContainer.HEART_AMOUNT);
+            if (nbt.contains(SoulHeartAmuletContainer.HEART_AMOUNT)) {
+                var t = nbt.getIntArray(SoulHeartAmuletContainer.HEART_AMOUNT);
+                array[0] = t[0];
+                array[1] = t[1];
+                array[2] = t[2];
+                array[3] = t[3];
+            }
         }
 
-        return new int[HeartType.values().length];
+        return array;
     }
 
     @Override
@@ -107,27 +110,4 @@ public class ItemSoulHeartAmulet extends TrinketItem implements ExtendedScreenHa
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeItemStack(player.getMainHandStack());
     }
-
-    /*
-    @Override
-    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        LivingEntity livingEntity = slotContext.entity();
-        if(livingEntity instanceof Player player) {
-            ICuriosItemHandler handler = CuriosApi.getCuriosInventory(livingEntity).orElse(null);
-            if (handler == null) return;
-            SlotResult equipped = handler.findFirstCurio(RegistryHandler.SOUL_HEART_AMULET.get()).orElse(null);
-            if (equipped != null) {
-                updatePlayerHealth(player, equipped.stack(), true);
-            }
-        }
-    }
-
-
-    @Override
-    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        if (slotContext.entity() instanceof Player player) {
-            updatePlayerHealth((Player) player, ItemStack.EMPTY, false);
-        }
-    }
-     */
 }

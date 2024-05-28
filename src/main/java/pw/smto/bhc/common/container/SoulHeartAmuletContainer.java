@@ -3,6 +3,7 @@ package pw.smto.bhc.common.container;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.util.ClickType;
 import net.minecraft.util.Hand;
 import pw.smto.bhc.common.Registry;
 import pw.smto.bhc.common.config.ConfigHandler;
@@ -112,6 +113,19 @@ public class SoulHeartAmuletContainer extends ScreenHandler {
     public boolean canUse(PlayerEntity player) {
         return true;
     }
+
+    /*
+    @Override
+    public boolean handleSlotClick(PlayerEntity player, ClickType clickType, Slot slot, ItemStack stack, ItemStack cursorStack) {
+        if (clickType == ClickType.LEFT) {
+            int offsetButton = slot.id + 4; //Offset the pressed button by 4 to get the correct hotbar slot
+            if (getSlot(offsetButton).getStack().getItem() instanceof ItemSoulHeartAmulet)
+                return false;
+        }
+        return super.handleSlotClick(player, clickType, slot, stack, cursorStack);
+    }
+
+     */
 
     @Override
     public ItemStack quickMove(PlayerEntity playerIn, int index) {

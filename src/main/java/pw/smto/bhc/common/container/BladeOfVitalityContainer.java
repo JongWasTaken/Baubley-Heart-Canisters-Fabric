@@ -9,9 +9,12 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.ClickType;
 import pw.smto.bhc.common.Registry;
 import pw.smto.bhc.common.config.ConfigHandler;
 import pw.smto.bhc.common.items.BaseHeartCanister;
+import pw.smto.bhc.common.items.ItemHeartAmulet;
+import pw.smto.bhc.common.items.tools.ItemBladeOfVitality;
 import pw.smto.bhc.common.util.InventoryUtil;
 
 public class BladeOfVitalityContainer extends ScreenHandler {
@@ -95,7 +98,19 @@ public class BladeOfVitalityContainer extends ScreenHandler {
         sword.setNbt(nbt);
         super.onClosed(playerIn);
     }
+/*
+    @Override
+    public boolean handleSlotClick(PlayerEntity player, ClickType clickType, Slot slot, ItemStack stack, ItemStack cursorStack) {
+        if (clickType == ClickType.LEFT) {
+            int offsetButton = slot.id + 4; //Offset the pressed button by 4 to get the correct hotbar slot
+            if (getSlot(offsetButton).getStack().getItem() instanceof ItemBladeOfVitality)
+                return false;
+        }
+        return super.handleSlotClick(player, clickType, slot, stack, cursorStack);
+    }
 
+
+ */
     @Override
     public ItemStack quickMove(PlayerEntity playerIn, int index) {
         ItemStack stack = ItemStack.EMPTY;
