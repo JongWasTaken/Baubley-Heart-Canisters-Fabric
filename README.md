@@ -8,7 +8,7 @@ This was mainly done as a learning exercise, but also because I wanted the cool 
   
 ## Downloads
 (Downloads are not available yet.)  
-[Modrinth]()   
+[Modrinth](https://modrinth.com/mod/bhc-fabric)   
 [CurseForge]()  
   
 I also recommend installing [Colorful Hearts](https://modrinth.com/mod/colorful-hearts), to make the heart bar more readable.
