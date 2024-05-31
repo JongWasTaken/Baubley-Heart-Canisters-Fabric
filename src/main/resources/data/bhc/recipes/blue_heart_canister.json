@@ -11,7 +11,7 @@
       "item": "minecraft:netherite_block"
     },
     {
-      "tag": "forge:gems/emerald"
+      "item": "minecraft:emerald"
     }
   ],
   "result": {

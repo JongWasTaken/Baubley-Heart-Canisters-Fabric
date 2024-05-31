@@ -10,7 +10,7 @@
       "item": "bhc:yellow_heart_melted"
     },
     "H": {
-      "tag": "forge:heart"
+      "tag": "bhc:heart"
     }
   },
   "result": {
