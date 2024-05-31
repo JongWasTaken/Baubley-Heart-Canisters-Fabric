@@ -10,6 +10,6 @@
     "item": "bhc:soul_heart_canister"
   },
   "template": {
-    "tag": "forge:heart"
+    "tag": "bhc:heart"
   }
 }
