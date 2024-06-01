@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "bhc",
 	"version": "${version}",
-	"name": "Baubley Heart Canisters (Fabric)",
+	"name": "Baubley Heart Canisters",
 	"description": "A fabric port of Baubley Heart Canisters.",
 	"authors": [
 		"JongWasTaken",

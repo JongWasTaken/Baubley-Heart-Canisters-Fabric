@@ -69,9 +69,10 @@ dependencies {
 	modImplementation "dev.emi:trinkets:3.7.2"
 
 	// forge config api
-	modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:8.0.0"
-	include "curse.maven:forge-config-api-port-fabric-547434:4583000"
-	modLocalRuntime "fuzs.forgeconfigscreens:forgeconfigscreens-fabric:8.0.0"
+	modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${fca_version}"
+	include "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${fca_version}"
+	//include "curse.maven:forge-config-api-port-fabric-547434:4583000"
+	modLocalRuntime "fuzs.forgeconfigscreens:forgeconfigscreens-fabric:${fca_version}"
 }
 
 processResources {
