@@ -1,13 +1,11 @@
 # Baubley Heart Canisters for Fabric
 This is a port of [Baubley Heart Canisters](https://github.com/Traverse-Joe/Baubley-Heart-Canisters) for the Fabric Mod Loader.  
   
-It is currently in a **pre-release** state, so expect bugs and issues.  
-Please report any you encounter!  
+Please report any issues you encounter!  
   
 This was mainly done as a learning exercise, but also because I wanted the cool 100 attack damage sword in my Fabric modpack.
   
 ## Downloads
-(Downloads are not available yet.)  
 [Modrinth](https://modrinth.com/mod/bhc-fabric)   
 [CurseForge]()  
   
