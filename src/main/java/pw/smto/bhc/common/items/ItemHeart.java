@@ -1,8 +1,8 @@
 package pw.smto.bhc.common.items;
 
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -18,7 +18,7 @@ public class ItemHeart extends Item {
 
     public ItemHeart(HeartType type) {
         super(new Item.Settings().food(
-                new FoodComponent.Builder().saturationModifier(0).alwaysEdible().hunger(0).build())
+                new FoodComponent.Builder().saturationModifier(0).alwaysEdible().nutrition(0).build())
         );
         this.type = type;
     }

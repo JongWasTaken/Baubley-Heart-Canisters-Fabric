@@ -32,5 +32,7 @@
   "tooltip.bhc.patch_durability": "Uses Left: ",
   "container.bhc.blade_of_vitality": "Vitality Blade",
   "soulheartused.bhc.message": "Soul Heart Has Been Consumed!",
-  "trinkets.slot.bhc.heart_amulet": "Heart Amulet"
+  "trinkets.slot.bhc.heart_amulet": "Heart Amulet",
+  "tag.item.bhc.heart": "Hearts",
+  "tag.item.c.bones": "Bones"
 }

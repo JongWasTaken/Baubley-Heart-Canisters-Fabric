@@ -4,5 +4,5 @@
   "ingredient": {
     "item": "bhc:green_heart"
   },
-  "result": "bhc:green_heart_melted"
+  "result": {"id": "bhc:green_heart_melted"}
 }

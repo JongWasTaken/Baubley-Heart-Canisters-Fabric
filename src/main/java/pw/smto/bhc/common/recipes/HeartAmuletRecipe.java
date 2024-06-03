@@ -4,19 +4,23 @@ import com.google.gson.JsonObject;
 import com.google.gson.internal.NonNullElementWrapperList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.wispforest.owo.serialization.Endec;
+import io.wispforest.owo.serialization.SerializationContext;
 import io.wispforest.owo.util.RegistryAccess;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapelessRecipe;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import pw.smto.bhc.common.BaubleyHeartCanisters;
@@ -27,17 +31,20 @@ public class HeartAmuletRecipe extends ShapelessRecipe {
 
     final String group;
     final ItemStack result;
+
+    final CraftingRecipeCategory category = CraftingRecipeCategory.EQUIPMENT;
     final DefaultedList<Ingredient> ingredients;
 
-    public HeartAmuletRecipe(String group,ItemStack stack, DefaultedList<Ingredient> list) {
-        super(new Identifier(BaubleyHeartCanisters.MOD_ID, "amulet_shapeless"), group, CraftingRecipeCategory.EQUIPMENT, stack, list);
+    public HeartAmuletRecipe(String group, CraftingRecipeCategory category, ItemStack stack, DefaultedList<Ingredient> list) {
+        // new Identifier(BaubleyHeartCanisters.MOD_ID, "amulet_shapeless"),
+        super(group, CraftingRecipeCategory.EQUIPMENT, stack, list);
         this.group = group;
         this.result = stack;
         this.ingredients = list;
     }
 
     @Override
-    public ItemStack craft(RecipeInputInventory recipeInputInventory, DynamicRegistryManager dynamicRegistryManager) {
+    public ItemStack craft(RecipeInputInventory recipeInputInventory, RegistryWrapper.WrapperLookup wrapperLookup) {
         ItemStack oldCanister = ItemStack.EMPTY;
         for (int i = 0; i < recipeInputInventory.size(); i++) {
             ItemStack input = recipeInputInventory.getStack(i);
@@ -46,7 +53,7 @@ public class HeartAmuletRecipe extends ShapelessRecipe {
                 break;
             }
         }
-        ItemStack stack = super.craft(recipeInputInventory, dynamicRegistryManager);
+        ItemStack stack = super.craft(recipeInputInventory, wrapperLookup);
         SimpleInventory oldInv = InventoryUtil.createVirtualInventory(4, oldCanister);
         SimpleInventory newInv = InventoryUtil.createVirtualInventory(5, stack);
         for (int i = 0; i < oldInv.size(); i++) {
@@ -64,43 +71,68 @@ public class HeartAmuletRecipe extends ShapelessRecipe {
 
     public static class BHCSerializer implements RecipeSerializer<HeartAmuletRecipe> {
 
-        @Override
-        public HeartAmuletRecipe read(Identifier id, JsonObject json) {
-            String type = json.get("type").getAsString();
-            ItemStack result = Registries.ITEM.get(new Identifier(json.get("result").getAsJsonObject().get("item").getAsString())).getDefaultStack();
-            var ilist = json.get("ingredients").getAsJsonArray();
-            DefaultedList<Ingredient> nonnulllist = DefaultedList.ofSize(ilist.size(), Ingredient.EMPTY);
-            for(int i = 0; i < ilist.size(); ++i) {
-                nonnulllist.set(i, Ingredient.fromJson(ilist.get(i).getAsJsonObject()));
-            }
-            return new HeartAmuletRecipe(type, result, nonnulllist);
-        }
+        public static final PacketCodec<RegistryByteBuf, HeartAmuletRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+                BHCSerializer::write, BHCSerializer::read
+        );
 
-        @Override
-        public HeartAmuletRecipe read(Identifier identifier, PacketByteBuf pBuffer) {
+        public static HeartAmuletRecipe read(PacketByteBuf pBuffer) {
             String s = pBuffer.readString();
             int i = pBuffer.readVarInt();
             DefaultedList<Ingredient> nonnulllist = DefaultedList.ofSize(i, Ingredient.EMPTY);
 
             for(int j = 0; j < nonnulllist.size(); ++j) {
-                nonnulllist.set(j, Ingredient.fromPacket(pBuffer));
+                nonnulllist.set(j, pBuffer.read(Endec.ofCodec(Ingredient.DISALLOW_EMPTY_CODEC)));
             }
 
-            ItemStack itemstack = pBuffer.readItemStack();
-            return new HeartAmuletRecipe(s, itemstack, nonnulllist);
+            ItemStack itemstack = pBuffer.read(Endec.ofCodec(ItemStack.CODEC));
+            return new HeartAmuletRecipe(s, null, itemstack, nonnulllist);
         }
 
 
-        @Override
-        public void write(PacketByteBuf buf, HeartAmuletRecipe heartAmuletRecipe) {
+        public static void write(PacketByteBuf buf, HeartAmuletRecipe heartAmuletRecipe) {
             buf.writeString(heartAmuletRecipe.getGroup());
             buf.writeVarInt(heartAmuletRecipe.getIngredients().size());
 
             for(Ingredient ingredient : heartAmuletRecipe.getIngredients()) {
-                ingredient.write(buf);
+                buf.write(Endec.ofCodec(Ingredient.DISALLOW_EMPTY_CODEC), ingredient);
             }
-            buf.writeItemStack(heartAmuletRecipe.getOutput(DynamicRegistryManager.EMPTY));
+            buf.write(Endec.ofCodec(ItemStack.CODEC),heartAmuletRecipe.getResult(DynamicRegistryManager.EMPTY));
         }
 
+        private static final MapCodec<HeartAmuletRecipe> CODEC = RecordCodecBuilder.mapCodec(
+                instance -> instance.group(
+                                Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
+                                CraftingRecipeCategory.CODEC.fieldOf("category").orElse(CraftingRecipeCategory.MISC).forGetter(recipe -> recipe.category),
+                                ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(recipe -> recipe.result),
+                                Ingredient.DISALLOW_EMPTY_CODEC
+                                        .listOf()
+                                        .fieldOf("ingredients")
+                                        .flatXmap(
+                                                ingredients -> {
+                                                    Ingredient[] ingredients2 = (Ingredient[])ingredients.stream().filter(ingredient -> !ingredient.isEmpty()).toArray(i -> new Ingredient[i]);
+                                                    if (ingredients2.length == 0) {
+                                                        return DataResult.error(() -> "No ingredients for shapeless recipe");
+                                                    } else {
+                                                        return ingredients2.length > 9
+                                                                ? DataResult.error(() -> "Too many ingredients for shapeless recipe")
+                                                                : DataResult.success(DefaultedList.<Ingredient>copyOf(Ingredient.EMPTY, ingredients2));
+                                                    }
+                                                },
+                                                DataResult::success
+                                        )
+                                        .forGetter(recipe -> recipe.ingredients)
+                        )
+                        .apply(instance, HeartAmuletRecipe::new)
+        );
+
+        @Override
+        public MapCodec<HeartAmuletRecipe> codec() {
+            return CODEC;
+        }
+
+        @Override
+        public PacketCodec<RegistryByteBuf, HeartAmuletRecipe> packetCodec() {
+            return PACKET_CODEC;
+        }
     }
 }

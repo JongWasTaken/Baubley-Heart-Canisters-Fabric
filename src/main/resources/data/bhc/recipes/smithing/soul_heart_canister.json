@@ -7,7 +7,7 @@
     "item": "minecraft:totem_of_undying"
   },
   "result": {
-    "item": "bhc:soul_heart_canister"
+    "id": "bhc:soul_heart_canister"
   },
   "template": {
     "tag": "bhc:heart"

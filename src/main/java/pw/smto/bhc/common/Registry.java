@@ -97,9 +97,9 @@ public class Registry {
     }
 
     public static class ScreenHandlers implements AutoRegistryContainer<ScreenHandlerType<?>> {
-        public static final ScreenHandlerType<BladeOfVitalityContainer> BLADE_OF_VITALITY_CONTAINER = new ExtendedScreenHandlerType<>(BladeOfVitalityContainer::new);
-        public static final ScreenHandlerType<HeartAmuletContainer> HEART_AMUlET_CONTAINER = new ExtendedScreenHandlerType<>(HeartAmuletContainer::new);
-        public static final ScreenHandlerType<SoulHeartAmuletContainer> SOUL_HEART_AMUlET_CONTAINER = new ExtendedScreenHandlerType<>(SoulHeartAmuletContainer::new);
+        public static final ScreenHandlerType<BladeOfVitalityContainer> BLADE_OF_VITALITY_CONTAINER = new ExtendedScreenHandlerType<>(BladeOfVitalityContainer::new, ItemBladeOfVitality.BladeOfVitalityData.PACKET_CODEC);
+        public static final ScreenHandlerType<HeartAmuletContainer> HEART_AMUlET_CONTAINER = new ExtendedScreenHandlerType<>(HeartAmuletContainer::new, ItemHeartAmulet.HeartAmuletData.PACKET_CODEC);
+        public static final ScreenHandlerType<SoulHeartAmuletContainer> SOUL_HEART_AMUlET_CONTAINER = new ExtendedScreenHandlerType<>(SoulHeartAmuletContainer::new, ItemSoulHeartAmulet.SoulHeartAmuletData.PACKET_CODEC);
 
         @Override
         public net.minecraft.registry.Registry<ScreenHandlerType<?>> getRegistry() {
@@ -130,7 +130,7 @@ public class Registry {
         FieldRegistrationHandler.register(ScreenHandlers.class, MOD_ID, false);
         FieldRegistrationHandler.register(RecipeSerializers.class, MOD_ID, false);
 
-        var tabBuilder = new FabricItemGroupBuilderImpl();
+        var tabBuilder = new ItemGroup.Builder(null, -1);
         tabBuilder.displayName(Text.translatable("itemGroup.bhcTab"));
         tabBuilder.icon(() -> ITEM_GROUP_ICON);
         tabBuilder.entries((displayContext, entries) -> {

@@ -1,6 +1,9 @@
 package pw.smto.bhc.common.container;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
@@ -16,6 +19,8 @@ import pw.smto.bhc.common.items.BaseHeartCanister;
 import pw.smto.bhc.common.items.ItemHeartAmulet;
 import pw.smto.bhc.common.items.tools.ItemBladeOfVitality;
 import pw.smto.bhc.common.util.InventoryUtil;
+
+import java.util.Objects;
 
 public class BladeOfVitalityContainer extends ScreenHandler {
     public static final String HEART_AMOUNT = "heart_amount";
@@ -52,9 +57,9 @@ public class BladeOfVitalityContainer extends ScreenHandler {
         }
     }
 
-    public BladeOfVitalityContainer(int windowId, Inventory playerInventory, PacketByteBuf b) {
+    public BladeOfVitalityContainer(int windowId, Inventory playerInventory, ItemBladeOfVitality.BladeOfVitalityData b) {
         super(Registry.ScreenHandlers.BLADE_OF_VITALITY_CONTAINER, windowId);
-        var stack = b.readItemStack();
+        var stack = b.stack();
         this.itemStackHandler = InventoryUtil.createVirtualInventory(4, stack);
 
         //Heart Container Slots
@@ -88,14 +93,15 @@ public class BladeOfVitalityContainer extends ScreenHandler {
     public void onClosed(PlayerEntity playerIn) {
         ItemStack sword = playerIn.getMainHandStack();
         InventoryUtil.serializeInventory(this.itemStackHandler, sword);
-        NbtCompound nbt = sword.getNbt();
+        NbtCompound nbt = Objects.requireNonNull(sword.get(DataComponentTypes.CUSTOM_DATA)).copyNbt();
         int[] hearts = new int[this.itemStackHandler.size()];
         for (int i = 0; i < hearts.length; i++) {
             ItemStack stack = this.itemStackHandler.getStack(i);
             if (!stack.isEmpty()) hearts[i] = stack.getCount() * 2;
         }
         nbt.putIntArray(HEART_AMOUNT, hearts);
-        sword.setNbt(nbt);
+        sword.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+
         super.onClosed(playerIn);
     }
 /*

@@ -2,7 +2,7 @@ package pw.smto.bhc.common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
+import fuzs.forgeconfigapiport.fabric.api.forge.v4.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraftforge.fml.config.ModConfig;

@@ -1,6 +1,7 @@
 package pw.smto.bhc.common.util;
 
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -33,8 +34,8 @@ public class DropHandler {
 
         double dropRateModifier = 0.0;
 
-        if (player.getMainHandStack().hasNbt()) {
-            var enchantments = player.getMainHandStack().getNbt().getList("Enchantments", NbtElement.COMPOUND_TYPE);
+        if (player.getMainHandStack().getComponents().contains(DataComponentTypes.CUSTOM_DATA)) {
+            var enchantments = player.getMainHandStack().get(DataComponentTypes.CUSTOM_DATA).copyNbt().getList("Enchantments", NbtElement.COMPOUND_TYPE);
             if (enchantments != null) {
                 for (NbtElement enchantment : enchantments) {
                     NbtCompound compound = (NbtCompound) enchantment;

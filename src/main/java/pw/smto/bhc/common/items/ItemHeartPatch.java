@@ -1,6 +1,7 @@
 package pw.smto.bhc.common.items;
 
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,22 +28,21 @@ public class ItemHeartPatch extends Item {
         this.durability = durability;
     }
 
-    @Override
-    public boolean isDamageable() {
-        return true;
-    }
 
     @Override
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if(!worldIn.isClient()) {
             ItemStack stack = playerIn.getStackInHand(handIn);
-            worldIn.playSound((PlayerEntity) null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.NEUTRAL, 0.5F, 0.4F / (worldIn.getRandom().nextFloat() * 0.4F + 0.8F));
+            worldIn.playSound((PlayerEntity) null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.NEUTRAL, 0.5F, 0.4F / (worldIn.getRandom().nextFloat() * 0.4F + 0.8F));
             playerIn.heal(amount);
             if (!playerIn.isCreative()) {
                 playerIn.getItemCooldownManager().set(stack.getItem(), cooldown);
-                stack.damage(1, playerIn, (p) -> {
-                    p.sendToolBreakStatus(handIn);
-                });
+                if (handIn.equals(Hand.MAIN_HAND)) {
+                    stack.damage(1, playerIn, EquipmentSlot.MAINHAND);
+                }
+                else {
+                    stack.damage(1, playerIn, EquipmentSlot.OFFHAND);
+                }
             }
             return new TypedActionResult<>(ActionResult.SUCCESS, playerIn.getStackInHand(handIn));
         }
@@ -50,8 +50,8 @@ public class ItemHeartPatch extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-        super.appendTooltip(stack, worldIn, tooltip, flagIn);
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, tooltip, type);
         tooltip.add(Text.translatable("tooltip.bhc.patch_amount").append(Text.literal("" + amount)).setStyle(Style.EMPTY.withFormatting(Formatting.RED)));
         tooltip.add(Text.translatable("tooltip.bhc.patch_durability").append(Text.literal("" + (this.durability - stack.getDamage())).setStyle(Style.EMPTY.withFormatting(Formatting.BLUE))));
     }

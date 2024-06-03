@@ -1,5 +1,7 @@
 package pw.smto.bhc.common.container;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
@@ -16,7 +18,10 @@ import pw.smto.bhc.common.Registry;
 import pw.smto.bhc.common.config.ConfigHandler;
 import pw.smto.bhc.common.items.BaseHeartCanister;
 import pw.smto.bhc.common.items.ItemHeartAmulet;
+import pw.smto.bhc.common.items.ItemSoulHeartAmulet;
 import pw.smto.bhc.common.util.InventoryUtil;
+
+import java.util.Objects;
 
 public class HeartAmuletContainer extends ScreenHandler {
 
@@ -55,9 +60,9 @@ public class HeartAmuletContainer extends ScreenHandler {
         }
     }
 
-    public HeartAmuletContainer(int windowId, Inventory playerInventory, PacketByteBuf b) {
+    public HeartAmuletContainer(int windowId, Inventory playerInventory, ItemHeartAmulet.HeartAmuletData b) {
         super(Registry.ScreenHandlers.HEART_AMUlET_CONTAINER, windowId);
-        var stack = b.readItemStack();
+        var stack = b.stack();
         this.itemStackHandler = InventoryUtil.createVirtualInventory(4, stack);
 
         //Heart Container Slots
@@ -128,14 +133,14 @@ public class HeartAmuletContainer extends ScreenHandler {
         Hand hand = ItemHeartAmulet.getHandForAmulet(playerIn);
         if (hand == null) return;
         InventoryUtil.serializeInventory(this.itemStackHandler, playerIn.getStackInHand(hand));
-        NbtCompound nbt = playerIn.getStackInHand(hand).getNbt();
+        NbtCompound nbt = Objects.requireNonNull(playerIn.getStackInHand(hand).get(DataComponentTypes.CUSTOM_DATA)).copyNbt();
         int[] hearts = new int[this.itemStackHandler.size()];
         for (int i = 0; i < hearts.length; i++) {
             ItemStack stack = this.itemStackHandler.getStack(i);
             if (!stack.isEmpty()) hearts[i] = stack.getCount() * 2;
         }
         nbt.putIntArray(HEART_AMOUNT, hearts);
-        playerIn.getStackInHand(hand).setNbt(nbt);
+        playerIn.getStackInHand(hand).set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
         super.onClosed(playerIn);
     }
 
