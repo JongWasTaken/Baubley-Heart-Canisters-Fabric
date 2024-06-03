@@ -7,7 +7,7 @@ This was mainly done as a learning exercise, but also because I wanted the cool 
   
 ## Downloads
 [Modrinth](https://modrinth.com/mod/bhc-fabric)   
-[CurseForge]()  
+[CurseForge](https://legacy.curseforge.com/minecraft/mc-mods/baubley-heart-canisters-fabric)  
   
 I also recommend installing [Colorful Hearts](https://modrinth.com/mod/colorful-hearts), to make the heart bar more readable.
 ## License
