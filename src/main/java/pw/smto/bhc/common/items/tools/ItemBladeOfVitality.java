@@ -136,6 +136,7 @@ public class ItemBladeOfVitality extends SwordItem implements ExtendedScreenHand
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         super.appendTooltip(stack, context, tooltip, type);
+        // I hate this too, but for some reason 1.20.6 just does not want to display the tooltip correctly, so a hack it is
         tooltip.add(Text.translatable("tooltip.bhc.vitality_blade").setStyle(Style.EMPTY.withFormatting(Formatting.GOLD)));
         tooltip.add(Text.literal(" "));
         tooltip.add(Text.literal("When in Main Hand:").setStyle(Style.EMPTY.withFormatting(Formatting.GRAY)));
@@ -144,7 +145,6 @@ public class ItemBladeOfVitality extends SwordItem implements ExtendedScreenHand
         tooltip.add(Text.literal(" +"+ IntStream.of(getHeartCount(stack)).sum() +" Attack Damage").setStyle(Style.EMPTY.withFormatting(Formatting.BLUE)));
 
     }
-
 
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
@@ -162,5 +162,10 @@ public class ItemBladeOfVitality extends SwordItem implements ExtendedScreenHand
     @Override
     public BladeOfVitalityData getScreenOpeningData(ServerPlayerEntity player) {
         return new BladeOfVitalityData(player.getMainHandStack());
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return true;
     }
 }
