@@ -4,19 +4,19 @@
     {
       "model": "bhc:item/lash_blade",
       "predicate": {
-        "bhc:easter_egg": 1.0
+        "bhc:easter_egg": 0.1
       }
     },
     {
       "model": "bhc:item/traverse_blade",
       "predicate": {
-        "bhc:easter_egg": 2.0
+        "bhc:easter_egg": 0.2
       }
     },
     {
       "model": "bhc:item/jamiscus_blade",
       "predicate": {
-        "bhc:easter_egg": 3.0
+        "bhc:easter_egg": 0.3
       }
     }
   ],
