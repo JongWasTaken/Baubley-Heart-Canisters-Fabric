@@ -6,6 +6,10 @@ Please report any issues you encounter!
 This was mainly done as a learning exercise, but also because I wanted the cool 100 attack damage sword in my Fabric modpack.
   
 ## Downloads
+[![https://modrinth.com/mod/fabric-api](https://img.shields.io/badge/Requires_Fabric_API-white?style=for-the-badge&logo=modrinth&logoColor=black)](https://modrinth.com/mod/fabric-api)
+[![https://modrinth.com/mod/owo-lib](https://img.shields.io/badge/Requires_owo--lib-purple?style=for-the-badge&logo=modrinth&logoColor=black)](https://modrinth.com/mod/owo-lib)
+[![https://modrinth.com/mod/trinkets](https://img.shields.io/badge/Requires_trinkets-gray?style=for-the-badge&logo=modrinth&logoColor=black)](https://modrinth.com/mod/trinkets)
+  
 [Modrinth](https://modrinth.com/mod/bhc-fabric)   
 [CurseForge](https://legacy.curseforge.com/minecraft/mc-mods/baubley-heart-canisters-fabric)  
   
