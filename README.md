@@ -1,5 +1,5 @@
 # Baubley Heart Canisters for Fabric
-This is a port of [Baubley Heart Canisters](https://github.com/Traverse-Joe/Baubley-Heart-Canisters) for the Fabric Mod Loader.  
+This is an unofficial port of [Baubley Heart Canisters](https://github.com/Traverse-Joe/Baubley-Heart-Canisters) for the Fabric Mod Loader.  
   
 Please report any issues you encounter!  
   
