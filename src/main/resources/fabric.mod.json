@@ -30,7 +30,7 @@
 		"java": ">=17",
 		"fabric-api": ">=${fabric_version}",
 		"owo-lib": ">=${owo_version}",
-		"trinkets": ">=${trinkets_version}"
+		"trinkets": "*"
 	},
 	"suggests": {
 		"colorful-hearts": "*"
