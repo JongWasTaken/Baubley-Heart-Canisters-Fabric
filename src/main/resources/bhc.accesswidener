@@ -1,7 +1,3 @@
 accessWidener v2 named
-accessible method net/minecraft/item/Item getMaxCount ()I
-extendable method net/minecraft/item/Item getMaxCount ()I
-accessible method net/minecraft/item/Item getMaxDamage ()I
-extendable method net/minecraft/item/Item getMaxDamage ()I
 accessible method net/minecraft/screen/ScreenHandler handleSlotClick (Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/ClickType;Lnet/minecraft/screen/slot/Slot;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z
 extendable method net/minecraft/screen/ScreenHandler handleSlotClick (Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/ClickType;Lnet/minecraft/screen/slot/Slot;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)Z

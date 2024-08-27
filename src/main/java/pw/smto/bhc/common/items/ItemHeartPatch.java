@@ -10,7 +10,6 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import pw.smto.bhc.common.BaubleyHeartCanisters;
 
 import java.util.List;
 

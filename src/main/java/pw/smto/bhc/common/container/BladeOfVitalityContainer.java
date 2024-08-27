@@ -6,15 +6,11 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.ClickType;
 import pw.smto.bhc.common.Registry;
 import pw.smto.bhc.common.config.ConfigHandler;
 import pw.smto.bhc.common.items.BaseHeartCanister;
-import pw.smto.bhc.common.items.ItemHeartAmulet;
-import pw.smto.bhc.common.items.tools.ItemBladeOfVitality;
 import pw.smto.bhc.common.util.InventoryUtil;
 
 public class BladeOfVitalityContainer extends ScreenHandler {
@@ -132,7 +128,7 @@ public class BladeOfVitalityContainer extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return true;
+        return InventoryUtil.hasItem(player, Registry.Items.BLADE_OF_VITALITY);
     }
 
 

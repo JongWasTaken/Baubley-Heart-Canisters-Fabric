@@ -1,9 +1,7 @@
 package pw.smto.bhc.common.items;
 
 import net.minecraft.item.FoodComponent;
-import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
-import pw.smto.bhc.common.BaubleyHeartCanisters;
 public class BaseItem extends Item {
 
     public BaseItem() {

@@ -6,11 +6,8 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-
-import net.minecraft.util.ClickType;
 import net.minecraft.util.Hand;
 import pw.smto.bhc.common.Registry;
 import pw.smto.bhc.common.config.ConfigHandler;
@@ -141,12 +138,7 @@ public class HeartAmuletContainer extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        if(InventoryUtil.hasAmulet(player)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return InventoryUtil.hasItem(player, Registry.Items.HEART_AMULET);
     }
 /*
     @Override

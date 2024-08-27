@@ -3,21 +3,20 @@
 	"id": "bhc",
 	"version": "${version}",
 	"name": "Baubley Heart Canisters",
-	"description": "A fabric port of Baubley Heart Canisters.",
+	"description": "A Fabric port of Baubley Heart Canisters.",
 	"authors": [
 		"JongWasTaken",
 		"Traverse_Joe"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/JongWasTaken/Baubley-Heart-Canisters-Fabric"
 	},
-	"license": "GPLv3",
+	"license": "GPL-3.0-only",
 	"icon": "assets/bhc/textures/item/red_heart_canister.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-          "pw.smto.bhc.common.BaubleyHeartCanisters"
+			"pw.smto.bhc.common.BaubleyHeartCanisters"
 		],
 		"client": [
 			"pw.smto.bhc.client.BaubleyHeartCanisters"
@@ -30,7 +29,7 @@
 		"java": ">=17",
 		"fabric-api": ">=${fabric_version}",
 		"owo-lib": ">=${owo_version}",
-		"trinkets": "*"
+		"trinkets": ">=${trinkets_version}"
 	},
 	"suggests": {
 		"colorful-hearts": "*"

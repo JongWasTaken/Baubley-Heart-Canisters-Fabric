@@ -1,12 +1,6 @@
 package pw.smto.bhc.common.recipes;
 
 import com.google.gson.JsonObject;
-import com.google.gson.internal.NonNullElementWrapperList;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.wispforest.owo.util.RegistryAccess;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;

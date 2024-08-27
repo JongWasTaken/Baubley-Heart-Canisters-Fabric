@@ -1,7 +1,6 @@
 package pw.smto.bhc.common.items;
 
 import com.google.common.collect.Multimap;
-import dev.emi.trinkets.api.SlotAttributes;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -22,15 +21,11 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import pw.smto.bhc.common.BaubleyHeartCanisters;
 import pw.smto.bhc.common.Registry;
-import pw.smto.bhc.common.container.BladeOfVitalityContainer;
 import pw.smto.bhc.common.container.HeartAmuletContainer;
 import pw.smto.bhc.common.container.SoulHeartAmuletContainer;
-import pw.smto.bhc.common.util.HeartType;
 
 import java.util.List;
 import java.util.UUID;
